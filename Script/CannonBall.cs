@@ -35,7 +35,6 @@ public class CannonBall : MonoBehaviour
     private void DeleteTime()
     {
         activeTime -= Time.deltaTime * 1;
-        Debug.Log(activeTime);
     }
 
 

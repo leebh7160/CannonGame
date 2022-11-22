@@ -38,7 +38,7 @@ public class Cannon : MonoBehaviour
 
     private void TryFire()
     {
-        if (Input.GetMouseButtonDown(0) && isCannon_Shoot == false && Cannon_BallCount < 5)
+        if (Input.GetMouseButtonDown(0) && isCannon_Shoot == false && Cannon_BallCount < Cannon_BallNumber)
         {
             Cannon_Ball[Cannon_BallCount].Cannon = this.GetComponent<Cannon>();
             Cannon_Ball[Cannon_BallCount].transform.position = Cannon_Shoot.position;
@@ -50,6 +50,7 @@ public class Cannon : MonoBehaviour
 
             isCannon_Shoot = true;
             Cannon_BallCount += 1;
+            Cannon_ShootChange();
         }
     }
 
@@ -67,10 +68,15 @@ public class Cannon : MonoBehaviour
         Cannon_Gun.up = t_direction;
     }
 
+    private void Cannon_ShootChange()
+    {
+        gameManager.CannonBallCount(Cannon_BallCount);
+    }
+
     public void Cannon_Reset()
     {
         isCannon_Shoot = false;
-        Cannon_BallCount = 5;
+        Cannon_BallCount = 0;
     }
 
     #region Send »Æ¿Œ
@@ -82,7 +88,7 @@ public class Cannon : MonoBehaviour
     public void Send_BallDelete()
     {
         isCannon_Shoot = false;
-        gameManager.SendMessage("ShootingBallDelete");
+        gameManager.SendMessage("ShootingBallDelete", Cannon_BallCount);
     }
     #endregion
 }
